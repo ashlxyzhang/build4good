@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 const Vinyls = () => {
   const [vinyls, setVinyls] = useState<any[]>([]);
   const [inputValue, setInputValue] = useState("");
+  const [recInput, setRecInput] = useState("");
 
   useEffect(() => {
     const fetchVinylsWithArt = async () => {
@@ -17,7 +18,11 @@ const Vinyls = () => {
               vinyl.properties.album.rich_text[0].plain_text,
               vinyl.properties.ars_name.title[0].plain_text
             );
-            return { ...vinyl, albumPicture };
+            return {
+              albumPicture: albumPicture,
+              album: vinyl.properties.album.rich_text[0].plain_text,
+              ars_name: vinyl.properties.ars_name.title[0].plain_text,
+            };
           })
         );
         setVinyls(vinylsWithArt);
@@ -42,7 +47,11 @@ const Vinyls = () => {
               vinyl.properties.album.rich_text[0].plain_text,
               vinyl.properties.ars_name.title[0].plain_text
             );
-            return { ...vinyl, albumPicture };
+            return {
+              albumPicture: albumPicture,
+              album: vinyl.properties.album.rich_text[0].plain_text,
+              ars_name: vinyl.properties.ars_name.title[0].plain_text,
+            };
           })
         );
         setVinyls(vinylsWithArt);
@@ -68,6 +77,28 @@ const Vinyls = () => {
     }
   };
 
+  const recs = async (event: any) => {
+    event.preventDefault();
+    const fetchVinylsWithArt = async () => {
+      try {
+        const response = await axios.get<any[]>(
+          `http://127.0.0.1:5001/recommend?album_name=${recInput}`
+        );
+        console.log(response.data);
+        const vinylsWithArt = await Promise.all(
+          response.data.map(async (vinyl) => {
+            const albumPicture = await album_art(vinyl.album, vinyl.ars_name);
+            return { ...vinyl, albumPicture };
+          })
+        );
+        setVinyls(vinylsWithArt);
+      } catch (error) {
+        console.error("Error: ", error);
+      }
+    };
+    fetchVinylsWithArt();
+  };
+
   return (
     <>
       <Navbar />
@@ -77,6 +108,15 @@ const Vinyls = () => {
           placeholder="Search for an album by name or artist"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
+        />
+        <button type="submit">Search</button>
+      </form>
+      <form onSubmit={recs}>
+        <input
+          type="text"
+          placeholder="Get recommendations for albums!"
+          value={recInput}
+          onChange={(e) => setRecInput(e.target.value)}
         />
         <button type="submit">Search</button>
       </form>
@@ -92,10 +132,8 @@ const Vinyls = () => {
             </div>
             <div className="flex flex-col justify-center align-middle text-center product-info">
               <div className="product-text text-center">
-                <h1>{vinyl.properties.album.rich_text[0].plain_text}</h1>
-                <h2 className="uppercase">
-                  by {vinyl.properties.ars_name.title[0].plain_text}
-                </h2>
+                <h1>{vinyl.album}</h1>
+                <h2 className="uppercase">by {vinyl.ars_name}</h2>
               </div>
               <div>
                 <p>
