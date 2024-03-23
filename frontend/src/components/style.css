@@ -1,8 +1,5 @@
-body {
-}
-
 .wrapper {
-  height: 100%;
+  width: 30%;
   margin: 10px;
   /* VIA CSS MATIC https://goo.gl/cIbnS */
   -webkit-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
@@ -11,42 +8,22 @@ body {
 }
 
 .product-img {
-  width: inherit;
+  width: 40%;
 }
 
 .product-info {
-  border-radius: 10px;
-  background-color: #ffffff;
+  width: 60%;
 }
 
 .product-text {
-  margin: 0 24px;
+  margin: 5px;
 }
 
-.product-price-btn p {
-  height: 40px;
-  font-family: "Trocchi", serif;
-  font-size: 28px;
-  font-weight: lighter;
-  color: #474747;
+.product-text h1 {
+  font-size: 18px;
 }
 
-.product-price-btn button {
-  height: 40px;
-  width: 120px;
-  box-sizing: border-box;
-  border: transparent;
-  border-radius: 60px;
-  font-family: "Raleway", sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: #ffffff;
-  background-color: #9cebd5;
-  cursor: pointer;
-}
-
-.product-price-btn button:hover {
-  background-color: #79b0a1;
+.product-text h2 {
+  color: grey;
+  font-size: 13px;
 }

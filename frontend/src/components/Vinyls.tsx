@@ -83,14 +83,19 @@ const Vinyls = () => {
 
       <div className="flex justify-around text-center flex-wrap">
         {vinyls.map((vinyl: any, index) => (
-          <div key={index} className="wrapper flex">
+          <div
+            key={index}
+            className="wrapper flex justify-between align-middle text-center"
+          >
             <div className="product-img">
               <img src={vinyl.albumPicture} />
             </div>
-            <div className="flex flex-col justify-center align-middle text-center">
+            <div className="flex flex-col justify-center align-middle text-center product-info">
               <div className="product-text text-center">
                 <h1>{vinyl.properties.album.rich_text[0].plain_text}</h1>
-                <h2>by {vinyl.properties.ars_name.title[0].plain_text}</h2>
+                <h2 className="uppercase">
+                  by {vinyl.properties.ars_name.title[0].plain_text}
+                </h2>
               </div>
               <div>
                 <p>
