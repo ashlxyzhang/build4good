@@ -11,19 +11,16 @@ const notion = new Client({ auth: apiKey })
 const query_db = async () => {
     const all_vinyls = await notion.databases.query({
         database_id: dbId,
-        page_size: 5,
         filter: {
             property: "id",
             "number": {
                 "less_than": 100
             }
         },
-        sort: {
+        sorts: [{
             property: "id",
             direction: "ascending",
-        }
+        }]
     })
-    console.log(all_vinyls.results)
+    return all_vinyls.results;
 }
-
-query_db()
