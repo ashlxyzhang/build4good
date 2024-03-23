@@ -28,9 +28,11 @@ from flask import Flask, request, jsonify, render_template
 import requests
 import os
 from dotenv import load_dotenv, dotenv_values
+from flask_cors import CORS
 
 load_dotenv()
 app = Flask(__name__)
+CORS(app)
 
 # Spotify API credentials
 SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
@@ -82,6 +84,24 @@ def get_album_by_track(track_name, artist_name, token):
             return "Track not found", ""
     else:
         return "Failed to search for track", ""
+    
+def get_pic_by_album(album_name, artist_name, token):
+    url = 'https://api.spotify.com/v1/search'
+    headers = {'Authorization': f'Bearer {token}'}
+    params = {'q': f'album:{album_name} artist:{artist_name}', 'type': 'track', 'limit': 1}
+    response = requests.get(url, headers=headers, params=params)
+    
+    if response.status_code == 200:
+        tracks = response.json().get('tracks', {}).get('items', [])
+        if tracks:
+            album_data = tracks[0].get('album', {})
+            # Fetch the album image. Assuming we want the first image (typically the largest)
+            album_image_url = album_data.get('images', [{}])[0].get('url', '')
+            return album_image_url  # Return both name and image URL
+        else:
+            return "Album not found", ""
+    else:
+        return "Failed to search for album", ""
 
     
 
@@ -135,6 +155,13 @@ def identify_song():
             result['result']['album'] = album_name
             result['result']['album_image_url'] = album_image_url  # Add a new field for the image URL
     return jsonify(result)
+
+@app.route('/get_album_art', methods=['GET'])
+def get_album_art():
+    spotify_token = get_spotify_token()
+    if spotify_token:
+        album_image_url = get_pic_by_album(request.args.get('album_title'), request.args.get('artist_name'), spotify_token)
+    return album_image_url
 
 if __name__ == '__main__':
     app.run(debug=True)

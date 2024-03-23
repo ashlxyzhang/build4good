@@ -18,7 +18,7 @@ const query_db = async () => {
         filter: {
             property: "id",
             "number": {
-                "less_than": 100
+                "less_than": 20
             }
         },
         sorts: [{

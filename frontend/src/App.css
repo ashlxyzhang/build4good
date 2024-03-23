@@ -17,15 +17,6 @@
   color: white;
 }
 
-.bg-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  z-index: -1;
-}
-
 .nav-button {
   width: 265px;
   height: 56px;
