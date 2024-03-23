@@ -18,7 +18,7 @@ const query_db = async () => {
         filter: {
             property: "id",
             "number": {
-                "less_than": 5
+                "less_than": 100
             }
         },
         sorts: [{
@@ -29,13 +29,52 @@ const query_db = async () => {
     return all_vinyls.results;
 }
 
+const search_db = async (prop="") => {
+    const searched_vinyls = await notion.databases.query({
+        database_id: dbId,
+        filter: {
+            "or": [
+                {
+                    "property": "album",
+                    "rich_text": {
+                        "contains": prop,
+                    }
+                },
+                {
+                    "property": "ars_name",
+                    "rich_text": {
+                        "contains": prop,
+                    }
+                }
+            ]
+        },
+        sorts: [{
+            property: "id",
+            direction: "ascending",
+        }]
+    })
+    console.log(searched_vinyls.results)
+    return searched_vinyls.results;
+}
+
 app.get("/vinyls", async (req, res) => {
     try {
         const result = await query_db();
-        res.json(result)
+        res.json(result);
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal server error' });
+    }
+})
+
+app.get("/search_vinyls", async (req, res) => {
+    console.log(req);
+    try {
+        const result = await search_db(req.query.prop);
+        res.json(result);
+    } catch (error) {
+        console.error("Error: ", error);
+        res.status(500).json({ error: "Internal server error" });
     }
 })
 

@@ -1,3 +1,38 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+.navbar a:hover {
+  color: #eeb426;
+}
+
+.navbar {
+  width: 100vw;
+  height: 50px;
+  position: relative;
+  background-color: #222222;
+  padding-left: 15%;
+  padding-right: 15%;
+  z-index: 100;
+  color: white;
+}
+
+.bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: -1;
+}
+
+.nav-button {
+  width: 265px;
+  height: 56px;
+  background-color: #8aa7d1;
+  border-radius: 5px;
+}
+
+.nav-button:hover {
+  background-color: #5e86c2;
+}
