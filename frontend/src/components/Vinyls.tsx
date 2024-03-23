@@ -102,23 +102,80 @@ const Vinyls = () => {
   return (
     <>
       <Navbar />
-      <form onSubmit={search}>
-        <input
-          type="text"
-          placeholder="Search for an album by name or artist"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-        <button type="submit">Search</button>
+      <form className="m-3 max-w-md mx-auto" onSubmit={search}>
+        <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
+          Search
+        </label>
+        <div className="relative">
+          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <svg
+              className="w-4 h-4 text-gray-500 dark:text-gray-400"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+              />
+            </svg>
+          </div>
+          <input
+            className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            type="text"
+            placeholder="Search for an album by name or artist"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="text-white absolute end-2.5 bottom-2.5 bg-blue-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Search
+          </button>
+        </div>
       </form>
-      <form onSubmit={recs}>
-        <input
-          type="text"
-          placeholder="Get recommendations for albums!"
-          value={recInput}
-          onChange={(e) => setRecInput(e.target.value)}
-        />
-        <button type="submit">Search</button>
+
+      <form className="m-3 max-w-md mx-auto" onSubmit={recs}>
+        <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
+          Search
+        </label>
+        <div className="relative">
+          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <svg
+              className="w-4 h-4 text-gray-500 dark:text-gray-400"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+              />
+            </svg>
+          </div>
+          <input
+            className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            type="text"
+            placeholder="Get recommendations for albums!"
+            value={recInput}
+            onChange={(e) => setRecInput(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="text-white absolute end-2.5 bottom-2.5 bg-blue-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Search
+          </button>
+        </div>
       </form>
 
       <div className="flex justify-around text-center flex-wrap">
@@ -135,11 +192,13 @@ const Vinyls = () => {
                 <h1>{vinyl.album}</h1>
                 <h2 className="uppercase">by {vinyl.ars_name}</h2>
               </div>
-              <div>
+              <div className="button">
                 <p>
                   <span>$10.99</span>
                 </p>
-                <button type="button">buy now</button>
+                <button className=" m-2 bg-transparent hover:bg-blue-400 text-blue-400 font-semibold hover:text-white py-2 px-4 border border-blue-400 hover:border-transparent rounded">
+                  BUY NOW
+                </button>
               </div>
             </div>
           </div>

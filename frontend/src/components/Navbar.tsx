@@ -30,8 +30,6 @@ const Navbar = () => {
         <li>
           <Link to="/vinyls">Vinyls</Link>
         </li>
-        <li>Tune Finder</li>
-        <li>About</li>
       </ul>
     </>
   );
