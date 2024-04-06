@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../components/style.css";
 import axios from "axios";
 import Navbar from "./Navbar";
@@ -8,10 +8,13 @@ const Vinyls = () => {
   const [inputValue, setInputValue] = useState("");
   const [recInput, setRecInput] = useState("");
 
+  axios.defaults.baseURL =
+    "https://us-central1-ashs-wrld.cloudfunctions.net/collections_api";
+
   useEffect(() => {
     const fetchVinylsWithArt = async () => {
       try {
-        const response = await axios.get<any[]>("http://localhost:8000/vinyls");
+        const response = await axios.get<any[]>("/vinyls");
         const vinylsWithArt = await Promise.all(
           response.data.map(async (vinyl) => {
             const albumPicture = await album_art(
@@ -39,7 +42,7 @@ const Vinyls = () => {
     const fetchVinylsWithArt = async () => {
       try {
         const response = await axios.get<any[]>(
-          `http://localhost:8000/search_vinyls?prop=${inputValue}`
+          `/search_vinyls?prop=${inputValue}`
         );
         const vinylsWithArt = await Promise.all(
           response.data.map(async (vinyl) => {
@@ -68,7 +71,7 @@ const Vinyls = () => {
   ): Promise<string | undefined> => {
     try {
       const response = await axios.get<any>(
-        `http://127.0.0.1:5000/get_album_art?album_title=${albumName}&artist_name=${artistName}`
+        `https://collectionsflask-uiv5uflcoa-uc.a.run.app/get_album_art?album_title=${albumName}&artist_name=${artistName}`
       );
       return response.data; // Assuming the response contains the URL of the album art
     } catch (error) {
@@ -82,7 +85,7 @@ const Vinyls = () => {
     const fetchVinylsWithArt = async () => {
       try {
         const response = await axios.get<any[]>(
-          `http://127.0.0.1:5001/recommend?album_name=${recInput}`
+          `https://collectionsflask-uiv5uflcoa-uc.a.run.app/recommend?album_name=${recInput}`
         );
         console.log(response.data);
         const vinylsWithArt = await Promise.all(
